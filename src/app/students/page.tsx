@@ -32,6 +32,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow, Book, Calendar as CalendarIcon, CreditCard, UserPlus, MoreHorizontal } from 'lucide-react';
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+    DialogFooter,
+} from "@/components/ui/dialog";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
@@ -47,32 +57,49 @@ interface Student {
 
 const UpdatePaymentStatusDropdown = ({ studentId, currentStatus, onStatusUpdate }: { studentId: string, currentStatus: string, onStatusUpdate: (studentId: string, newStatus: string) => void }) => {
     const [open, setOpen] = useState(false);
+    const [newStatus, setNewStatus] = useState(currentStatus);
 
-    const handleStatusChange = (newStatus: string) => {
+    const handleStatusChange = () => {
         onStatusUpdate(studentId, newStatus);
         setOpen(false);
     };
 
     return (
-        <DropdownMenu open={open} onOpenChange={setOpen}>
-            <DropdownMenuTrigger asChild>
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                     <span className="sr-only">Open menu</span>
                     <MoreHorizontal className="h-4 w-4" />
                 </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => handleStatusChange("Paid")}>
-                    Paid
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleStatusChange("Pending")}>
-                    Pending
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => handleStatusChange("Overdue")}>
-                    Overdue
-                </DropdownMenuItem>
-            </DropdownMenuContent>
-        </DropdownMenu>
+            </DialogTrigger>
+            <DialogContent>
+                <DialogHeader>
+                    <DialogTitle>Update Payment Status</DialogTitle>
+                    <DialogDescription>
+                        Select the new payment status for the student.
+                    </DialogDescription>
+                </DialogHeader>
+                <RadioGroup defaultValue={currentStatus} className="grid gap-2" onValueChange={setNewStatus}>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="Paid" id="r1" />
+                        <Label htmlFor="r1">Paid</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="Pending" id="r2" />
+                        <Label htmlFor="r2">Pending</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="Overdue" id="r3" />
+                        <Label htmlFor="r3">Overdue</Label>
+                    </div>
+                </RadioGroup>
+                <DialogFooter>
+                    <Button type="submit" onClick={handleStatusChange}>
+                        Update Status
+                    </Button>
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
 };
 
@@ -113,6 +140,7 @@ export default function StudentsPage() {
   });
 
   return (
+    <>
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
       <Button onClick={() => router.back()}>Back</Button>
@@ -204,5 +232,6 @@ export default function StudentsPage() {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 }
