@@ -24,7 +24,7 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -43,6 +43,7 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { use } from 'react';
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
@@ -109,6 +110,8 @@ export default function StudentsPage() {
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const _searchParams = use(Promise.resolve(searchParams));
 
   useEffect(() => {
     // Load students from local storage on component mount
@@ -141,9 +144,10 @@ export default function StudentsPage() {
   });
 
   return (
+    <>
+    <Button onClick={() => router.back()}>Back</Button>
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
-      <Button onClick={() => router.back()}>Back</Button>
       <Card>
         <CardHeader>
           <CardTitle>Student List</CardTitle>
@@ -234,5 +238,6 @@ export default function StudentsPage() {
         </CardContent>
       </Card>
     </div>
+    </>
   );
 }
