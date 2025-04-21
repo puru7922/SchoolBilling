@@ -37,6 +37,15 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
 
   const handleAddStudent = () => {
     if (name && fathersName && mothersName && dateOfBirth && gender && address && studentClass  && enrollmentDate && feePaymentStatus) {
+       // Validate studentClass
+       const validClasses = ["nursery", "KG1", "KG2", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+       if (!validClasses.includes(studentClass)) {
+         toast({
+           title: "Error",
+           description: "Please enter a valid class (nursery, KG1, KG2, 1-12).",
+         });
+         return;
+       }
       const newStudent = {
         id: Math.random().toString(36).substring(7),
         name,
