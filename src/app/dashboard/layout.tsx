@@ -16,6 +16,7 @@ import React from "react";
 import AddStudentModal from "@/components/AddStudentModal";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
+import { useRouter } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -35,7 +36,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/students">
+                <SidebarMenuButton href="/students" onClick={() => router.push('/students')}>
                   <Icons.user className="mr-2 h-4 w-4" />
                   <span>Students</span>
                 </SidebarMenuButton>
@@ -60,6 +61,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
 const AppBar = () => {
   const { toggleSidebar } = useSidebar();
+    const router = useRouter();
 
   return (
     <div className="fixed top-0 left-0 w-full h-14 bg-secondary border-b border-border z-10">
@@ -74,6 +76,7 @@ const AppBar = () => {
     </div>
   );
 };
+
 
 
 
