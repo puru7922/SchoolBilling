@@ -26,6 +26,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { format } from "date-fns";
+import { DateRange } from "react-day-picker";
 
 const students = [
   {
@@ -76,18 +77,13 @@ const bills = [
 ];
 
 export default function Dashboard() {
-  const [date, setDate] = useState<Date | undefined>(undefined);
+  const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
 
   const filteredStudents = students.filter((student) => {
-    if (date) {
+    if (date?.from && date?.to) {
       const enrollmentDate = new Date(student.enrollmentDate);
-      const selectedDate = new Date(date);
-      if (
-        enrollmentDate.getFullYear() !== selectedDate.getFullYear() ||
-        enrollmentDate.getMonth() !== selectedDate.getMonth() ||
-        enrollmentDate.getDate() !== selectedDate.getDate()
-      ) {
+      if (enrollmentDate < date.from || enrollmentDate > date.to) {
         return false;
       }
     }
@@ -110,22 +106,32 @@ export default function Dashboard() {
           <CardContent className="space-y-4">
             <div className="flex items-center space-x-4">
               <div>
-                <Label htmlFor="date">Enrollment Date</Label>
+                <Label htmlFor="date">Enrollment Date Range</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
                       variant={"outline"}
                       className={cn(
-                        "w-[240px] justify-start text-left font-normal",
-                        !date && "text-muted-foreground"
+                        "w-[300px] justify-start text-left font-normal",
+                        !date?.from
+                          ? "text-muted-foreground"
+                          : "text-foreground"
                       )}
                     >
-                      {date ? format(date, "PPP") : <span>Pick a date</span>}
+                      {date?.from ? (
+                        date.to ? (
+                          `${format(date.from, "PPP")} - ${format(date.to, "PPP")}`
+                        ) : (
+                          format(date.from, "PPP")
+                        )
+                      ) : (
+                        <span>Pick a date range</span>
+                      )}
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
                     <Calendar
-                      mode="single"
+                      mode="range"
                       selected={date}
                       onSelect={setDate}
                       disabled={(date) =>
