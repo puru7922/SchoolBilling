@@ -96,6 +96,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Student Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -106,6 +107,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Father's Name"
               value={fathersName}
               onChange={(e) => setFathersName(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -116,6 +118,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Mother's Name"
               value={mothersName}
               onChange={(e) => setMothersName(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -126,12 +129,13 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Date of Birth"
               value={dateOfBirth}
               onChange={(e) => setDateOfBirth(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="gender">Gender</Label>
             <Select onValueChange={setGender}>
-              <SelectTrigger className="w-[240px]">
+              <SelectTrigger className="w-[240px]" required>
                 <SelectValue placeholder="Select gender"/>
               </SelectTrigger>
               <SelectContent>
@@ -149,6 +153,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -159,6 +164,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Class"
               value={studentClass}
               onChange={(e) => setStudentClass(e.target.value)}
+              required
             />
           </div>
           <div className="grid gap-2">
@@ -169,6 +175,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
               placeholder="Enrollment Date"
               value={enrollmentDate}
               onChange={(e) => setEnrollmentDate(e.target.value)}
+              required
             />
           </div>
         </div>
