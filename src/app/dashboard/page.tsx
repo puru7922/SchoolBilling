@@ -100,6 +100,34 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
+            <CardTitle>Billing Overview</CardTitle>
+            <CardDescription>Summary of student bills</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Student</TableHead>
+                  <TableHead>Amount</TableHead>
+                  <TableHead>Due Date</TableHead>
+                  <TableHead>Status</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {bills.map((bill) => (
+                  <TableRow key={bill.id}>
+                    <TableCell>{bill.student}</TableCell>
+                    <TableCell>{bill.amount}</TableCell>
+                    <TableCell>{bill.dueDate}</TableCell>
+                    <TableCell>{bill.status}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
             <CardTitle>Student List</CardTitle>
             <CardDescription>List of all students</CardDescription>
           </CardHeader>
@@ -172,35 +200,6 @@ export default function Dashboard() {
                     <TableCell>{student.email}</TableCell>
                     <TableCell>{student.enrollmentDate}</TableCell>
                     <TableCell>{student.feePaymentStatus}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader>
-            <CardTitle>Billing Overview</CardTitle>
-            <CardDescription>Summary of student bills</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Student</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Due Date</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {bills.map((bill) => (
-                  <TableRow key={bill.id}>
-                    <TableCell>{bill.student}</TableCell>
-                    <TableCell>{bill.amount}</TableCell>
-                    <TableCell>{bill.dueDate}</TableCell>
-                    <TableCell>{bill.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
