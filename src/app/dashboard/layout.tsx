@@ -8,7 +8,6 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarProvider,
   SidebarTrigger,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
@@ -92,4 +91,5 @@ const AppBar = () => {
     </div>
   );
 };
+
 
