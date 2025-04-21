@@ -1,3 +1,4 @@
+"use client";
 
 import { Icons } from "@/components/icons";
 import {
@@ -9,14 +10,18 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import React from "react";
 import AddStudentModal from "@/components/AddStudentModal";
+import { Button } from "@/components/ui/button";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <SidebarProvider>
       <div className="flex">
+        <AppBar />
         <Sidebar>
           <SidebarHeader>
             <h1 className="font-bold text-xl">CampusConnect</h1>
@@ -53,3 +58,19 @@ export default function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const AppBar = () => {
+  const { toggleSidebar } = useSidebar();
+
+  return (
+    <div className="fixed top-0 left-0 w-full h-14 bg-secondary border-b border-border z-10">
+      <div className="flex items-center justify-between h-full px-4">
+        <Button variant="ghost" size="icon" onClick={toggleSidebar}>
+          <Icons.arrowRight className="h-6 w-6" />
+          <span className="sr-only">Toggle Sidebar</span>
+        </Button>
+        <span className="font-bold text-xl">CampusConnect</span>
+        <div></div> {/* Placeholder for centering the title */}
+      </div>
+    </div>
+  );
+};
