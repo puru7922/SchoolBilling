@@ -17,7 +17,7 @@ export default function Dashboard({ students }: DashboardProps) {
   let paidCount = 0;
   let overdueCount = 0;
 
-  if (students) {
+  if (students && Array.isArray(students)) {
     students.forEach((student) => {
       if (student.feePaymentStatus === "Pending") {
         pendingCount++;
@@ -30,7 +30,7 @@ export default function Dashboard({ students }: DashboardProps) {
   }
 
   return (
-    <div className="p-4 mt-14">
+    <div className="p-4 mt-14 w-full">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
       <div className="flex flex-col gap-6">
@@ -49,5 +49,4 @@ export default function Dashboard({ students }: DashboardProps) {
     </div>
   );
 }
-
 
