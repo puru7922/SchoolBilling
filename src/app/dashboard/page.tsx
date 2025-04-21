@@ -30,7 +30,7 @@ export default function Dashboard({ students }: DashboardProps) {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 mt-14">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
       <div className="flex flex-col gap-6">
