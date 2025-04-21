@@ -21,48 +21,57 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import AddStudentModal from "@/components/AddStudentModal";
 import { useRouter } from "next/navigation";
 
-const studentsData = [
+const initialStudentsData = [
   {
     id: "1",
     name: "John Doe",
-    email: "john.doe@example.com",
     enrollmentDate: "2024-01-15",
     feePaymentStatus: "Paid",
   },
   {
     id: "2",
     name: "Jane Smith",
-    email: "jane.smith@example.com",
     enrollmentDate: "2023-11-20",
     feePaymentStatus: "Pending",
   },
   {
     id: "3",
     name: "Alice Johnson",
-    email: "alice.johnson@example.com",
     enrollmentDate: "2024-02-01",
     feePaymentStatus: "Paid",
   },
   {
     id: "4",
     name: "Bob Williams",
-    email: "bob.williams@example.com",
     enrollmentDate: "2023-12-10",
     feePaymentStatus: "Overdue",
   },
 ];
 
 export default function StudentsPage() {
-  const [students, setStudents] = useState(studentsData);
+  const [students, setStudents] = useState(initialStudentsData);
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
-    const router = useRouter();
+  const router = useRouter();
+
+  useEffect(() => {
+    // Load students from local storage on component mount
+    const storedStudents = localStorage.getItem('students');
+    if (storedStudents) {
+      setStudents(JSON.parse(storedStudents));
+    }
+  }, []);
+
+  useEffect(() => {
+    // Save students to local storage whenever the students state changes
+    localStorage.setItem('students', JSON.stringify(students));
+  }, [students]);
 
 
   const filteredStudents = students.filter((student) => {
@@ -81,7 +90,6 @@ export default function StudentsPage() {
   const handleAddStudent = (newStudent: {
     id: string;
     name: string;
-    email: string;
     enrollmentDate: string;
     feePaymentStatus: string;
   }) => {
@@ -91,7 +99,7 @@ export default function StudentsPage() {
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
-            <Button onClick={() => router.back()}>Back</Button>
+      <Button onClick={() => router.back()}>Back</Button>
       <Card>
         <CardHeader>
           <CardTitle>Student List</CardTitle>
@@ -149,13 +157,12 @@ export default function StudentsPage() {
                 </SelectContent>
               </Select>
             </div>
-            <AddStudentModal />
+            <AddStudentModal onAddStudent={handleAddStudent} />
           </div>
           <Table>
             <TableHeader>
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>Email</TableHead>
                 <TableHead>Enrollment Date</TableHead>
                 <TableHead>Fee Payment Status</TableHead>
               </TableRow>
@@ -164,7 +171,6 @@ export default function StudentsPage() {
               {filteredStudents.map((student) => (
                 <TableRow key={student.id}>
                   <TableCell>{student.name}</TableCell>
-                  <TableCell>{student.email}</TableCell>
                   <TableCell>{student.enrollmentDate}</TableCell>
                   <TableCell>{student.feePaymentStatus}</TableCell>
                 </TableRow>
@@ -176,4 +182,3 @@ export default function StudentsPage() {
     </div>
   );
 }
-

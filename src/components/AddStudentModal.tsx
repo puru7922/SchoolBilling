@@ -21,9 +21,10 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {Icons} from "@/components/icons";
 
 interface AddStudentModalProps {
+  onAddStudent: (newStudent: { id: string; name: string; enrollmentDate: string; feePaymentStatus: string }) => void;
 }
 
-const AddStudentModal: React.FC<AddStudentModalProps> = () => {
+const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
   const [name, setName] = useState("");
   const [fathersName, setFathersName] = useState("");
   const [mothersName, setMothersName] = useState("");
@@ -43,6 +44,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
         enrollmentDate,
         feePaymentStatus,
       };
+      onAddStudent(newStudent);
       toast({
         title: "Success",
         description: "Student added successfully.",
