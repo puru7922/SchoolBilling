@@ -17,15 +17,17 @@ export default function Dashboard({ students }: DashboardProps) {
   let paidCount = 0;
   let overdueCount = 0;
 
-  students.forEach((student) => {
-    if (student.feePaymentStatus === "Pending") {
-      pendingCount++;
-    } else if (student.feePaymentStatus === "Paid") {
-      paidCount++;
-    } else if (student.feePaymentStatus === "Overdue") {
-      overdueCount++;
-    }
-  });
+  if (students) {
+    students.forEach((student) => {
+      if (student.feePaymentStatus === "Pending") {
+        pendingCount++;
+      } else if (student.feePaymentStatus === "Paid") {
+        paidCount++;
+      } else if (student.feePaymentStatus === "Overdue") {
+        overdueCount++;
+      }
+    });
+  }
 
   return (
     <div className="p-4">
