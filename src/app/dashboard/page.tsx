@@ -47,7 +47,7 @@ const bills = [
 
 export default function Dashboard() {
   return (
-    <div className="container mx-auto py-10">
+    <div className="p-0">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
       <div className="flex flex-col gap-6">
@@ -83,4 +83,3 @@ export default function Dashboard() {
     </div>
   );
 }
-
