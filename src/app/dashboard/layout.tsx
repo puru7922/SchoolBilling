@@ -12,13 +12,19 @@ import {
   SidebarTrigger,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import React from "react";
+import React, { useState } from "react";
 import AddStudentModal from "@/components/AddStudentModal";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
 import { useRouter } from "next/navigation";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const [students, setStudents] = useState([]);
+
+  const handleAddStudent = (newStudent: any) => {
+    setStudents([...students, newStudent]);
+  };
+
   return (
     <SidebarProvider>
       <div className="flex">
@@ -50,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </SidebarMenu>
           </SidebarContent>
           <SidebarFooter>
-            <AddStudentModal />
+          <AddStudentModal onAddStudent={handleAddStudent} />
           </SidebarFooter>
         </Sidebar>
         <div className="flex-1 p-4">{children}</div>
@@ -76,4 +82,3 @@ const AppBar = () => {
     </div>
   );
 };
-

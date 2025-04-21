@@ -24,9 +24,9 @@ import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
-import AddStudentModal from "@/components/AddStudentModal";
 import { useRouter } from "next/navigation";
 
+// Dummy data for demonstration purposes
 const initialStudentsData = [
   {
     id: "1",
@@ -86,15 +86,6 @@ export default function StudentsPage() {
     }
     return true;
   });
-
-  const handleAddStudent = (newStudent: {
-    id: string;
-    name: string;
-    enrollmentDate: string;
-    feePaymentStatus: string;
-  }) => {
-    setStudents([...students, newStudent]);
-  };
 
   return (
     <div className="container mx-auto py-10">
@@ -157,7 +148,6 @@ export default function StudentsPage() {
                 </SelectContent>
               </Select>
             </div>
-            <AddStudentModal onAddStudent={handleAddStudent} />
           </div>
           <Table>
             <TableHeader>
