@@ -42,6 +42,7 @@ import {
     DialogFooter,
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
@@ -140,7 +141,6 @@ export default function StudentsPage() {
   });
 
   return (
-    <>
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
       <Button onClick={() => router.back()}>Back</Button>
@@ -203,35 +203,36 @@ export default function StudentsPage() {
               </Select>
             </div>
           </div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Name</TableHead>
-                <TableHead>Enrollment Date</TableHead>
-                <TableHead>Fee Payment Status</TableHead>
-                <TableHead>Actions</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {filteredStudents.map((student) => (
-                <TableRow key={student.id}>
-                  <TableCell>{student.name}</TableCell>
-                  <TableCell>{student.enrollmentDate}</TableCell>
-                  <TableCell>{student.feePaymentStatus}</TableCell>
-                  <TableCell>
-                      <UpdatePaymentStatusDropdown
-                          studentId={student.id}
-                          currentStatus={student.feePaymentStatus}
-                          onStatusUpdate={handleStatusUpdate}
-                      />
-                  </TableCell>
+          <ScrollArea className="rounded-md border h-[400px] w-full">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Enrollment Date</TableHead>
+                  <TableHead>Fee Payment Status</TableHead>
+                  <TableHead>Actions</TableHead>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHeader>
+              <TableBody>
+                {filteredStudents.map((student) => (
+                  <TableRow key={student.id}>
+                    <TableCell>{student.name}</TableCell>
+                    <TableCell>{student.enrollmentDate}</TableCell>
+                    <TableCell>{student.feePaymentStatus}</TableCell>
+                    <TableCell>
+                      <UpdatePaymentStatusDropdown
+                        studentId={student.id}
+                        currentStatus={student.feePaymentStatus}
+                        onStatusUpdate={handleStatusUpdate}
+                      />
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </ScrollArea>
         </CardContent>
       </Card>
     </div>
-    </>
   );
 }
