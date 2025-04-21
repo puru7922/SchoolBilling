@@ -21,7 +21,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -146,6 +146,8 @@ export default function StudentsPage() {
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
+  const _searchParams = use(Promise.resolve(searchParams));
+
 
   useEffect(() => {
     // Load students from local storage on component mount
