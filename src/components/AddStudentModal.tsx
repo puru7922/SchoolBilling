@@ -15,24 +15,18 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { toast } from "@/hooks/use-toast";
+import { useRouter } from "next/navigation";
 
 interface AddStudentModalProps {
-  onStudentAdded: (student: {
-    id: string;
-    name: string;
-    email: string;
-    enrollmentDate: string;
-    feePaymentStatus: string;
-  }) => void;
 }
 
-const AddStudentModal: React.FC<AddStudentModalProps> = ({
-  onStudentAdded,
-}) => {
+const AddStudentModal: React.FC<AddStudentModalProps> = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [enrollmentDate, setEnrollmentDate] = useState("");
   const [feePaymentStatus, setFeePaymentStatus] = useState("Pending");
+    const router = useRouter();
 
   const handleAddStudent = () => {
     if (name && email && enrollmentDate && feePaymentStatus) {
@@ -43,11 +37,15 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({
         enrollmentDate,
         feePaymentStatus,
       };
-      onStudentAdded(newStudent);
+        toast({
+            title: "Success",
+            description: "Student added successfully.",
+        });
       setName("");
       setEmail("");
       setEnrollmentDate("");
       setFeePaymentStatus("Pending");
+        router.refresh();
     }
   };
 
