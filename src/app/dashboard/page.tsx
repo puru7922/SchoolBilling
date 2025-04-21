@@ -34,7 +34,7 @@ export default function Dashboard({ students }: DashboardProps) {
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
 
       <div className="flex flex-col gap-6">
-        <Card>
+        <Card className="w-full">
           <CardHeader>
             <CardTitle>Billing Overview</CardTitle>
             <CardDescription>Summary of student bills</CardDescription>
@@ -49,4 +49,5 @@ export default function Dashboard({ students }: DashboardProps) {
     </div>
   );
 }
+
 
