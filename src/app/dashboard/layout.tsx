@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarProvider,
   SidebarTrigger,
+  SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import React from "react";
 import AddStudentModal from "@/components/AddStudentModal";
