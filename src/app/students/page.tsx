@@ -25,14 +25,56 @@ import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { useRouter } from "next/navigation";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Check, ChevronsUpDown, Circle, Copy, Edit, ExternalLink, File, HelpCircle, Home, Loader2, Mail, MessageSquare, Moon, Plus, PlusCircle, Search, Server, Settings, Share2, Shield, Sun, Trash, User, X, Workflow, Book, Calendar as CalendarIcon, CreditCard, UserPlus, MoreHorizontal } from 'lucide-react';
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
 
 ];
 
+interface Student {
+    id: string;
+    name: string;
+    enrollmentDate: string;
+    feePaymentStatus: string;
+}
+
+const UpdatePaymentStatusDropdown = ({ studentId, currentStatus, onStatusUpdate }: { studentId: string, currentStatus: string, onStatusUpdate: (studentId: string, newStatus: string) => void }) => {
+    const handleStatusChange = (newStatus: string) => {
+        onStatusUpdate(studentId, newStatus);
+    };
+
+    return (
+        <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                    <span className="sr-only">Open menu</span>
+                    <MoreHorizontal className="h-4 w-4" />
+                </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleStatusChange("Paid")}>
+                    Paid
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleStatusChange("Pending")}>
+                    Pending
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => handleStatusChange("Overdue")}>
+                    Overdue
+                </DropdownMenuItem>
+            </DropdownMenuContent>
+        </DropdownMenu>
+    );
+};
+
 export default function StudentsPage() {
-  const [students, setStudents] = useState(initialStudentsData);
+  const [students, setStudents] = useState<Student[]>(initialStudentsData);
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
@@ -45,7 +87,14 @@ export default function StudentsPage() {
     }
   }, []);
 
-
+    const handleStatusUpdate = (studentId: string, newStatus: string) => {
+        const updatedStudents = students.map(student =>
+            student.id === studentId ? { ...student, feePaymentStatus: newStatus } : student
+        );
+        setStudents(updatedStudents);
+        localStorage.setItem('students', JSON.stringify(updatedStudents));
+        router.refresh();
+    };
 
   const filteredStudents = students.filter((student) => {
     if (date?.from && date?.to) {
@@ -129,6 +178,7 @@ export default function StudentsPage() {
                 <TableHead>Name</TableHead>
                 <TableHead>Enrollment Date</TableHead>
                 <TableHead>Fee Payment Status</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -137,6 +187,13 @@ export default function StudentsPage() {
                   <TableCell>{student.name}</TableCell>
                   <TableCell>{student.enrollmentDate}</TableCell>
                   <TableCell>{student.feePaymentStatus}</TableCell>
+                  <TableCell>
+                      <UpdatePaymentStatusDropdown
+                          studentId={student.id}
+                          currentStatus={student.feePaymentStatus}
+                          onStatusUpdate={handleStatusUpdate}
+                      />
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
