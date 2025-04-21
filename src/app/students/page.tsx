@@ -47,7 +47,42 @@ import { use } from 'react';
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
-
+    {
+        id: "1",
+        name: "John Doe",
+        enrollmentDate: "2024-01-15",
+        feePaymentStatus: "Paid",
+    },
+    {
+        id: "2",
+        name: "Jane Smith",
+        enrollmentDate: "2023-11-20",
+        feePaymentStatus: "Overdue",
+    },
+    {
+        id: "3",
+        name: "Alice Johnson",
+        enrollmentDate: "2024-02-01",
+        feePaymentStatus: "Paid",
+    },
+    {
+        id: "4",
+        name: "Bob Williams",
+        enrollmentDate: "2023-12-10",
+        feePaymentStatus: "Overdue",
+    },
+    {
+        id: "5",
+        name: "jdbvsikjbv",
+        enrollmentDate: "2025-04-16",
+        feePaymentStatus: "Pending",
+    },
+    {
+        id: "6",
+        name: "hsidgvisv",
+        enrollmentDate: "2025-04-17",
+        feePaymentStatus: "Paid",
+    },
 ];
 
 interface Student {
@@ -145,7 +180,9 @@ export default function StudentsPage() {
 
   return (
     <>
-    <Button onClick={() => router.back()}>Back</Button>
+    <div className="p-4">
+        <Button onClick={() => router.back()} className="mb-4">Back</Button>
+    </div>
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
       <Card>
@@ -241,4 +278,3 @@ export default function StudentsPage() {
     </>
   );
 }
-
