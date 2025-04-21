@@ -43,9 +43,51 @@ const bills = [
     dueDate: "2024-08-15",
     status: "Paid",
   },
+  {
+    id: "3",
+    student: "Alice Johnson",
+    amount: "$600",
+    dueDate: "2024-08-22",
+    status: "Overdue",
+  },
+  {
+    id: "4",
+    student: "Bob Williams",
+    amount: "$800",
+    dueDate: "2024-09-01",
+    status: "Pending",
+  },
+  {
+    id: "5",
+    student: "Charlie Brown",
+    amount: "$400",
+    dueDate: "2024-09-15",
+    status: "Paid",
+  },
+  {
+    id: "6",
+    student: "Diana Prince",
+    amount: "$900",
+    dueDate: "2024-09-22",
+    status: "Overdue",
+  },
 ];
 
 export default function Dashboard() {
+    let pendingCount = 0;
+    let paidCount = 0;
+    let overdueCount = 0;
+
+    bills.forEach(bill => {
+        if (bill.status === "Pending") {
+            pendingCount++;
+        } else if (bill.status === "Paid") {
+            paidCount++;
+        } else if (bill.status === "Overdue") {
+            overdueCount++;
+        }
+    });
+
   return (
     <div className="p-0">
       <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
@@ -57,26 +99,9 @@ export default function Dashboard() {
             <CardDescription>Summary of student bills</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Student</TableHead>
-                  <TableHead>Amount</TableHead>
-                  <TableHead>Due Date</TableHead>
-                  <TableHead>Status</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {bills.map((bill) => (
-                  <TableRow key={bill.id}>
-                    <TableCell>{bill.student}</TableCell>
-                    <TableCell>{bill.amount}</TableCell>
-                    <TableCell>{bill.dueDate}</TableCell>
-                    <TableCell>{bill.status}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <p>Pending Bills: {pendingCount}</p>
+            <p>Paid Bills: {paidCount}</p>
+            <p>Overdue Bills: {overdueCount}</p>
           </CardContent>
         </Card>
       </div>
