@@ -18,6 +18,7 @@ import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
+import {Icons} from "@/components/icons";
 
 interface AddStudentModalProps {
 }
@@ -30,17 +31,15 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
   const [gender, setGender] = useState("");
   const [address, setAddress] = useState("");
   const [studentClass, setStudentClass] = useState("");
-  const [email, setEmail] = useState("");
   const [enrollmentDate, setEnrollmentDate] = useState("");
-  const [feePaymentStatus, setFeePaymentStatus] = "Pending";
+  const [feePaymentStatus, setFeePaymentStatus] = useState("Pending");
   const router = useRouter();
 
   const handleAddStudent = () => {
-    if (name && fathersName && mothersName && dateOfBirth && gender && address && studentClass && email && enrollmentDate && feePaymentStatus) {
+    if (name && fathersName && mothersName && dateOfBirth && gender && address && studentClass  && enrollmentDate && feePaymentStatus) {
       const newStudent = {
         id: Math.random().toString(36).substring(7),
         name,
-        email,
         enrollmentDate,
         feePaymentStatus,
       };
@@ -55,7 +54,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
       setGender("");
       setAddress("");
       setStudentClass("");
-      setEmail("");
       setEnrollmentDate("");
       router.refresh();
     } else {
@@ -69,7 +67,10 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="outline">Add Student</Button>
+        <Button variant="outline">
+            <Icons.userPlus className="mr-2 h-4 w-4" />
+            Add Student
+        </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -150,16 +151,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
               placeholder="Class"
               value={studentClass}
               onChange={(e) => setStudentClass(e.target.value)}
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="email">Email</Label>
-            <Input
-              type="email"
-              id="email"
-              placeholder="Student Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
