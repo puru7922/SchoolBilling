@@ -111,7 +111,7 @@ export default function StudentsPage() {
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const _searchParams = use(Promise.resolve(searchParams));
+  // const _searchParams = use(Promise.resolve(searchParams));
 
   useEffect(() => {
     // Load students from local storage on component mount
@@ -241,3 +241,4 @@ export default function StudentsPage() {
     </>
   );
 }
+
