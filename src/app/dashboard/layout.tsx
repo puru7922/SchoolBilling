@@ -10,6 +10,7 @@ import {
   SidebarMenuButton,
   SidebarTrigger,
   SidebarMenuItem,
+  SidebarProvider,
 } from "@/components/ui/sidebar";
 import React, { useState, useEffect } from "react";
 import AddStudentModal from "@/components/AddStudentModal";
@@ -91,5 +92,3 @@ const AppBar = () => {
     </div>
   );
 };
-
-
