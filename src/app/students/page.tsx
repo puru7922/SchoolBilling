@@ -25,6 +25,7 @@ import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import AddStudentModal from "@/components/AddStudentModal";
+import { useRouter } from "next/navigation";
 
 const studentsData = [
   {
@@ -61,6 +62,8 @@ export default function StudentsPage() {
   const [students, setStudents] = useState(studentsData);
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
+    const router = useRouter();
+
 
   const filteredStudents = students.filter((student) => {
     if (date?.from && date?.to) {
@@ -88,6 +91,7 @@ export default function StudentsPage() {
   return (
     <div className="container mx-auto py-10">
       <h1 className="text-3xl font-bold mb-6">Student List</h1>
+            <Button onClick={() => router.back()}>Back</Button>
       <Card>
         <CardHeader>
           <CardTitle>Student List</CardTitle>
@@ -145,7 +149,7 @@ export default function StudentsPage() {
                 </SelectContent>
               </Select>
             </div>
-            <AddStudentModal onStudentAdded={handleAddStudent} />
+            <AddStudentModal />
           </div>
           <Table>
             <TableHeader>
@@ -172,3 +176,4 @@ export default function StudentsPage() {
     </div>
   );
 }
+
