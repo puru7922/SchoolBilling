@@ -24,8 +24,9 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
+import AddStudentModal from "@/components/AddStudentModal";
 
-const students = [
+const studentsData = [
   {
     id: "1",
     name: "John Doe",
@@ -57,6 +58,7 @@ const students = [
 ];
 
 export default function StudentsPage() {
+  const [students, setStudents] = useState(studentsData);
   const [date, setDate] = useState<DateRange | undefined>(undefined);
   const [paymentStatus, setPaymentStatus] = useState("");
 
@@ -72,6 +74,16 @@ export default function StudentsPage() {
     }
     return true;
   });
+
+  const handleAddStudent = (newStudent: {
+    id: string;
+    name: string;
+    email: string;
+    enrollmentDate: string;
+    feePaymentStatus: string;
+  }) => {
+    setStudents([...students, newStudent]);
+  };
 
   return (
     <div className="container mx-auto py-10">
@@ -133,6 +145,7 @@ export default function StudentsPage() {
                 </SelectContent>
               </Select>
             </div>
+            <AddStudentModal onStudentAdded={handleAddStudent} />
           </div>
           <Table>
             <TableHeader>
