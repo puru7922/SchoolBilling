@@ -44,6 +44,7 @@ import {
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { use } from 'react';
+import AddStudentModal from "@/components/AddStudentModal";
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
@@ -165,6 +166,13 @@ export default function StudentsPage() {
         router.refresh();
     };
 
+    const handleAddStudent = (newStudent: any) => {
+        const updatedStudents = [...students, newStudent];
+        setStudents(updatedStudents);
+        localStorage.setItem('students', JSON.stringify(updatedStudents));
+        router.refresh();
+    };
+
   const filteredStudents = students.filter((student) => {
     if (date?.from && date?.to) {
       const enrollmentDate = new Date(student.enrollmentDate);
@@ -183,12 +191,14 @@ export default function StudentsPage() {
     <div className="p-4">
         <Button onClick={() => router.back()} className="mb-4">Back</Button>
     </div>
-    <div className="container mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-6">Student List</h1>
+    <div className="container mx-auto py-2">
       <Card>
-        <CardHeader>
-          <CardTitle>Student List</CardTitle>
-          <CardDescription>List of all students</CardDescription>
+        <CardHeader className="flex items-center justify-between">
+          <div className="space-y-1">
+            <CardTitle>Student List</CardTitle>
+            <CardDescription>List of all students</CardDescription>
+          </div>
+            <AddStudentModal onAddStudent={handleAddStudent} />
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex items-center space-x-4">
@@ -278,3 +288,4 @@ export default function StudentsPage() {
     </>
   );
 }
+
