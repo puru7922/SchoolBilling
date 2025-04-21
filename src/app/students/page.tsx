@@ -81,7 +81,7 @@ export default function StudentsPage() {
         return false;
       }
     }
-    if (paymentStatus && student.feePaymentStatus !== paymentStatus) {
+    if (paymentStatus && paymentStatus !== "All" && student.feePaymentStatus !== paymentStatus) {
       return false;
     }
     return true;
@@ -142,6 +142,7 @@ export default function StudentsPage() {
                   <SelectValue placeholder="Select status" />
                 </SelectTrigger>
                 <SelectContent>
+                  <SelectItem value="All">All</SelectItem>
                   <SelectItem value="Paid">Paid</SelectItem>
                   <SelectItem value="Pending">Pending</SelectItem>
                   <SelectItem value="Overdue">Overdue</SelectItem>
