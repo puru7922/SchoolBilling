@@ -21,7 +21,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import { DateRange } from "react-day-picker";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -146,7 +146,7 @@ export default function StudentsPage() {
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const _searchParams = use(Promise.resolve(searchParams));
+  // const _searchParams = use(Promise.resolve(searchParams));
 
 
   useEffect(() => {
@@ -183,6 +183,14 @@ export default function StudentsPage() {
     if (paymentStatus && paymentStatus !== "All" && student.feePaymentStatus !== paymentStatus) {
       return false;
     }
+       if (searchParams) {
+         // Access search parameters safely
+         const paymentStatusParam = searchParams.get("paymentStatus");
+         if (paymentStatusParam && paymentStatusParam !== "All" && student.feePaymentStatus !== paymentStatusParam) {
+           return false;
+         }
+       }
+
     return true;
   });
 
