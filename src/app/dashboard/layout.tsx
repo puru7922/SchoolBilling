@@ -12,7 +12,7 @@ import {
   SidebarTrigger,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AddStudentModal from "@/components/AddStudentModal";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/components/ui/sidebar";
@@ -21,8 +21,18 @@ import { useRouter } from "next/navigation";
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [students, setStudents] = useState([]);
 
+    useEffect(() => {
+        // Load students from local storage on component mount
+        const storedStudents = localStorage.getItem('students');
+        if (storedStudents) {
+            setStudents(JSON.parse(storedStudents));
+        }
+    }, []);
+
   const handleAddStudent = (newStudent: any) => {
-    setStudents([...students, newStudent]);
+      const updatedStudents = [...students, newStudent];
+      setStudents(updatedStudents);
+      localStorage.setItem('students', JSON.stringify(updatedStudents));
   };
 
   return (
@@ -59,7 +69,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <AddStudentModal onAddStudent={handleAddStudent} />
           </SidebarFooter>
         </Sidebar>
-        <div className="flex-1 p-4">{children}</div>
+        <div className="flex-1 p-4">{React.cloneElement(children, { students: students })}</div>
       </div>
     </SidebarProvider>
   );

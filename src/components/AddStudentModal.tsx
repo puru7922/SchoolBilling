@@ -21,7 +21,7 @@ import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/c
 import {Icons} from "@/components/icons";
 
 interface AddStudentModalProps {
-  onAddStudent: (newStudent: { id: string; name: string; enrollmentDate: string; feePaymentStatus: string }) => void;
+  onAddStudent: (newStudent: { id: string; name: string; fathersName: string; mothersName: string; dateOfBirth: string; gender: string; address: string; studentClass: string, enrollmentDate: string; feePaymentStatus: string }) => void;
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
@@ -41,6 +41,12 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
       const newStudent = {
         id: Math.random().toString(36).substring(7),
         name,
+        fathersName,
+        mothersName,
+        dateOfBirth,
+        gender,
+        address,
+        studentClass,
         enrollmentDate,
         feePaymentStatus,
       };

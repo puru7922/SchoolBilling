@@ -28,30 +28,7 @@ import { useRouter } from "next/navigation";
 
 // Dummy data for demonstration purposes
 const initialStudentsData = [
-  {
-    id: "1",
-    name: "John Doe",
-    enrollmentDate: "2024-01-15",
-    feePaymentStatus: "Paid",
-  },
-  {
-    id: "2",
-    name: "Jane Smith",
-    enrollmentDate: "2023-11-20",
-    feePaymentStatus: "Pending",
-  },
-  {
-    id: "3",
-    name: "Alice Johnson",
-    enrollmentDate: "2024-02-01",
-    feePaymentStatus: "Paid",
-  },
-  {
-    id: "4",
-    name: "Bob Williams",
-    enrollmentDate: "2023-12-10",
-    feePaymentStatus: "Overdue",
-  },
+
 ];
 
 export default function StudentsPage() {
@@ -68,10 +45,6 @@ export default function StudentsPage() {
     }
   }, []);
 
-  useEffect(() => {
-    // Save students to local storage whenever the students state changes
-    localStorage.setItem('students', JSON.stringify(students));
-  }, [students]);
 
 
   const filteredStudents = students.filter((student) => {
@@ -173,3 +146,4 @@ export default function StudentsPage() {
     </div>
   );
 }
+
