@@ -46,12 +46,15 @@ interface Student {
 }
 
 const UpdatePaymentStatusDropdown = ({ studentId, currentStatus, onStatusUpdate }: { studentId: string, currentStatus: string, onStatusUpdate: (studentId: string, newStatus: string) => void }) => {
+    const [open, setOpen] = useState(false);
+
     const handleStatusChange = (newStatus: string) => {
         onStatusUpdate(studentId, newStatus);
+        setOpen(false);
     };
 
     return (
-        <DropdownMenu>
+        <DropdownMenu open={open} onOpenChange={setOpen}>
             <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                     <span className="sr-only">Open menu</span>
@@ -203,5 +206,3 @@ export default function StudentsPage() {
     </div>
   );
 }
-
-
