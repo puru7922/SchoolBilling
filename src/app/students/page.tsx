@@ -43,7 +43,6 @@ import {
 } from "@/components/ui/dialog";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { use } from 'react';
 import AddStudentModal from "@/components/AddStudentModal";
 
 // Dummy data for demonstration purposes
@@ -147,7 +146,6 @@ export default function StudentsPage() {
   const [paymentStatus, setPaymentStatus] = useState("");
   const router = useRouter();
   const searchParams = useSearchParams();
-  const _searchParams = use(Promise.resolve(searchParams));
 
   useEffect(() => {
     // Load students from local storage on component mount
