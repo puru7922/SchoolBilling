@@ -17,35 +17,59 @@ import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 
 interface AddStudentModalProps {
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = () => {
   const [name, setName] = useState("");
+  const [fathersName, setFathersName] = useState("");
+  const [mothersName, setMothersName] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [gender, setGender] = useState("");
+  const [address, setAddress] = useState("");
+  const [studentClass, setStudentClass] = useState("");
   const [email, setEmail] = useState("");
   const [enrollmentDate, setEnrollmentDate] = useState("");
   const [feePaymentStatus, setFeePaymentStatus] = useState("Pending");
-    const router = useRouter();
+  const router = useRouter();
 
   const handleAddStudent = () => {
-    if (name && email && enrollmentDate && feePaymentStatus) {
+    if (name && fathersName && mothersName && dateOfBirth && gender && address && studentClass && email && enrollmentDate && feePaymentStatus) {
       const newStudent = {
         id: Math.random().toString(36).substring(7),
         name,
+        fathersName,
+        mothersName,
+        dateOfBirth,
+        gender,
+        address,
+        studentClass,
         email,
         enrollmentDate,
         feePaymentStatus,
       };
-        toast({
-            title: "Success",
-            description: "Student added successfully.",
-        });
+      toast({
+        title: "Success",
+        description: "Student added successfully.",
+      });
       setName("");
+      setFathersName("");
+      setMothersName("");
+      setDateOfBirth("");
+      setGender("");
+      setAddress("");
+      setStudentClass("");
       setEmail("");
       setEnrollmentDate("");
       setFeePaymentStatus("Pending");
-        router.refresh();
+      router.refresh();
+    } else {
+      toast({
+        title: "Error",
+        description: "Please fill in all fields.",
+      });
     }
   };
 
@@ -70,6 +94,69 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
               placeholder="Student Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="fathersName">Father's Name</Label>
+            <Input
+              type="text"
+              id="fathersName"
+              placeholder="Father's Name"
+              value={fathersName}
+              onChange={(e) => setFathersName(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="mothersName">Mother's Name</Label>
+            <Input
+              type="text"
+              id="mothersName"
+              placeholder="Mother's Name"
+              value={mothersName}
+              onChange={(e) => setMothersName(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="dateOfBirth">Date of Birth</Label>
+            <Input
+              type="date"
+              id="dateOfBirth"
+              placeholder="Date of Birth"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="gender">Gender</Label>
+            <Select onValueChange={setGender}>
+              <SelectTrigger className="w-[240px]">
+                <SelectValue placeholder="Select gender"/>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Male">Male</SelectItem>
+                <SelectItem value="Female">Female</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="address">Address</Label>
+            <Input
+              type="text"
+              id="address"
+              placeholder="Address"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+            />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor="studentClass">Class</Label>
+            <Input
+              type="text"
+              id="studentClass"
+              placeholder="Class"
+              value={studentClass}
+              onChange={(e) => setStudentClass(e.target.value)}
             />
           </div>
           <div className="grid gap-2">
