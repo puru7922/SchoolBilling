@@ -32,7 +32,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
   const [studentClass, setStudentClass] = useState("");
   const [email, setEmail] = useState("");
   const [enrollmentDate, setEnrollmentDate] = useState("");
-  const [feePaymentStatus, setFeePaymentStatus] = useState("Pending");
+  const [feePaymentStatus, setFeePaymentStatus] = "Pending";
   const router = useRouter();
 
   const handleAddStudent = () => {
@@ -40,12 +40,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
       const newStudent = {
         id: Math.random().toString(36).substring(7),
         name,
-        fathersName,
-        mothersName,
-        dateOfBirth,
-        gender,
-        address,
-        studentClass,
         email,
         enrollmentDate,
         feePaymentStatus,
@@ -63,7 +57,6 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
       setStudentClass("");
       setEmail("");
       setEnrollmentDate("");
-      setFeePaymentStatus("Pending");
       router.refresh();
     } else {
       toast({
@@ -85,7 +78,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = () => {
             Enter the details for the new student.
           </AlertDialogDescription>
         </AlertDialogHeader>
-        <div className="grid gap-4 py-4">
+        <div className="grid gap-4 py-4" style={{ maxHeight: '400px', overflowY: 'auto' }}>
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
             <Input
