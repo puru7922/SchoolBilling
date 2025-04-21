@@ -8,7 +8,6 @@ import {
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
-  SidebarMenuItem,
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
@@ -36,7 +35,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton href="/students" onClick={() => router.push('/students')}>
+                <SidebarMenuButton href="/students">
                   <Icons.user className="mr-2 h-4 w-4" />
                   <span>Students</span>
                 </SidebarMenuButton>
@@ -76,7 +75,3 @@ const AppBar = () => {
     </div>
   );
 };
-
-
-
-
