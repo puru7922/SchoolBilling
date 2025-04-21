@@ -1,16 +1,14 @@
 "use client";
 
 import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -25,6 +23,7 @@ interface AddStudentModalProps {
 }
 
 const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
+  const [open, setOpen] = useState(false);
   const [name, setName] = useState("");
   const [fathersName, setFathersName] = useState("");
   const [mothersName, setMothersName] = useState("");
@@ -63,6 +62,7 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
       setAddress("");
       setStudentClass("");
       setEnrollmentDate("");
+      setOpen(false);
       router.refresh();
     } else {
       toast({
@@ -73,20 +73,20 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
   };
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
         <Button variant="outline">
             <Icons.userPlus className="mr-2 h-4 w-4" />
             Add Student
         </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Add New Student</AlertDialogTitle>
-          <AlertDialogDescription>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add New Student</DialogTitle>
+          <DialogDescription>
             Enter the details for the new student.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
+          </DialogDescription>
+        </DialogHeader>
         <div className="grid gap-4 py-4" style={{ maxHeight: '400px', overflowY: 'auto' }}>
           <div className="grid gap-2">
             <Label htmlFor="name">Name</Label>
@@ -172,14 +172,16 @@ const AddStudentModal: React.FC<AddStudentModalProps> = ({ onAddStudent }) => {
             />
           </div>
         </div>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleAddStudent}>
+        <DialogFooter>
+          <Button type="button" variant="secondary" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
+          <Button type="submit" onClick={handleAddStudent}>
             Add Student
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   );
 };
 
